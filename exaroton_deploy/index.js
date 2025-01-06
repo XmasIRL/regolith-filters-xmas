@@ -47,25 +47,25 @@ async function deployFiles() {
             const destPath = path.relative(files_path, filePath).replace(/\\/g, '/');
             console.log('Deploying ' + destPath);
 
-            async function getParentThatExists(filePath) {
-                const file = server.getFile(filePath);
-                const parentPath = path.dirname(filePath);
-                console.log('Checking parent that exists ...', filePath, ' ', parentPath);
-                try {
-                  await file.getInfo();
-                  console.log('Parent exists ...', filePath, ' ', parentPath);
-                } catch (e) {
-                  if (!(parentPath == '.') && !(parentPath == filePath)) await getParentThatExists(parentPath);
-                }
-                return filePath;
-            }
+            // async function getParentThatExists(filePath) {
+            //     const file = server.getFile(filePath);
+            //     const parentPath = path.dirname(filePath);
+            //     console.log('Checking parent that exists ...', filePath, ' ', parentPath);
+            //     try {
+            //       await file.getInfo();
+            //       console.log('Parent exists ...', filePath, ' ', parentPath);
+            //     } catch (e) {
+            //       if (!(parentPath == '.') && !(parentPath == filePath)) await getParentThatExists(parentPath);
+            //     }
+            //     return filePath;
+            // }
 
-            await getParentThatExists(destPath);
+            // await getParentThatExists(destPath);
 
 
-            // const fileRemote = server.getFile(destPath);
+            const fileRemote = server.getFile(destPath);
             // try {await fileRemote.delete();} catch (e) { console.error(e.message); }
-            // try {await fileRemote.uploadFromStream(fs.createReadStream(filePath));} catch (e) { console.error(e); }
+            try {await fileRemote.uploadFromStream(fs.createReadStream(filePath));} catch (e) { console.error(e); }
         }
 
         // if(server.hasStatus(server.STATUS.ONLINE)) await server.restart();
