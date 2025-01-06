@@ -1,4 +1,5 @@
 
+const fs = require('fs');
 const dotenv = require('dotenv');
 const path = require('path');
 const Exaroton = require('exaroton');
@@ -39,15 +40,15 @@ async function deployFiles() {
             }
         }
 
-        await readFiles('');
+        // await readFiles('');
 
         const walker = asyncFolderWalker(files_path,{statFilter: st => !st.isDirectory()});
         for await (const filePath of walker) {
             const destPath = path.relative(files_path, filePath).replace(/\\/g, '/');
             console.log('Deploying ' + destPath);
             const fileRemote = server.getFile(destPath);
-            try {await fileRemote.delete();} catch (e) { console.error(e.message); }
-            try {await fileRemote.upload(filePath);} catch (e) { console.error(e.message); }
+            // try {await fileRemote.delete();} catch (e) { console.error(e.message); }
+            try {await fileRemote.uploadFromStream(fs.createReadStream(filePath));} catch (e) { console.error(e.message); }
         }
 
         // if(server.hasStatus(server.STATUS.ONLINE)) await server.restart();
