@@ -50,7 +50,9 @@ async function deployFiles() {
             async function getParentThatExists(filePath) {
                 const file = server.getFile(filePath);
                 const parentPath = path.dirname(filePath);
+                console.log('Checking parent that exists ...', filePath, ' ', parentPath);
                 try { await file.getInfo(); } catch (e) { if (!parentPath == '') await getParentThatExists(parentPath); }
+                return filePath;
             }
 
             console.log('Getting parent that exists ...', await getParentThatExists(destPath));
