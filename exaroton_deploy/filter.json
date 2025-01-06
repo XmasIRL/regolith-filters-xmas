@@ -1,0 +1,10 @@
+{
+  "filters": [
+    {
+      "runWith": "nodejs",
+      "script": "./index.js",
+      "name": "Exaroton Deploy",
+      "description": "Deploy files to a Exaroton server."
+    }
+  ]
+}

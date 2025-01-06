@@ -1,0 +1,13 @@
+{
+  "name": "exaroton_deploy",
+  "version": "1.0.0",
+  "author": "Xmas",
+  "license": "Unlicense",
+  "description": "Uploads files to a configured Exaroton server.",
+  "main": "./index.js",
+  "dependencies": {
+    "async-folder-walker": "^3.0.5",
+    "dotenv": "^16.4.7",
+    "exaroton": "^1.8.0"
+  }
+}
