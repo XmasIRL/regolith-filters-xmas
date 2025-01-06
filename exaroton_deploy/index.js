@@ -4,7 +4,7 @@ const path = require('path');
 const Exaroton = require('exaroton');
 const { asyncFolderWalker } = require('async-folder-walker')
 
-const settings = JSON.parse(process.argv[2]);
+const settings = process.argv[2] ? JSON.parse(process.argv[2]) : null;
 
 const envPath = path.resolve(__dirname, settings?.envPath ?? 'data/exaroton_deploy/.env');
 dotenv.config({ path: envPath });
