@@ -16,9 +16,9 @@ const token = process.env.TOKEN;
 const serverID = process.env.SERVER_ID;
 
 const ROOT_DIR = process.env.ROOT_DIR + "/"
-const filesPath  = (ROOT_DIR + settings?.filesPath  ?? 'packs/data/exaroton_deploy/files' );
-const packsPath  = (ROOT_DIR + settings?.packsPath  ?? 'packs/data/exaroton_deploy/packs' );
-const worldsPath = (ROOT_DIR + settings?.worldsPath ?? 'packs/data/exaroton_deploy/worlds');
+const filesPath  = ROOT_DIR + (settings?.filesPath  ?? 'packs/data/exaroton_deploy/files' );
+const packsPath  = ROOT_DIR + (settings?.packsPath  ?? 'packs/data/exaroton_deploy/packs' );
+const worldsPath = ROOT_DIR + (settings?.worldsPath ?? 'packs/data/exaroton_deploy/worlds');
 
 if (!token || !serverID) {
   console.error("Error: Invalid configuration. Please check whether your .env file has TOKEN and SERVER_ID defined.");
