@@ -51,11 +51,12 @@ async function deployFiles() {
                 const file = server.getFile(filePath);
                 const parentPath = path.dirname(filePath);
                 console.log('Checking parent that exists ...', filePath, ' ', parentPath);
-                try { await file.getInfo(); } catch (e) { if (!parentPath == '') await getParentThatExists(parentPath); }
+                try { await file.getInfo(); } catch (e) { if (!parentPath == '.' && !parentPath == filePath) await getParentThatExists(parentPath); }
+                console.log('Parent exists ...', filePath, ' ', parentPath);
                 return filePath;
             }
 
-            console.log('Getting parent that exists ...', await getParentThatExists(destPath));
+            await getParentThatExists(destPath);
 
 
             // const fileRemote = server.getFile(destPath);
