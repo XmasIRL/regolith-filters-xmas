@@ -46,9 +46,19 @@ async function deployFiles() {
         for await (const filePath of walker) {
             const destPath = path.relative(files_path, filePath).replace(/\\/g, '/');
             console.log('Deploying ' + destPath);
-            const fileRemote = server.getFile(destPath);
+
+            async function getParentThatExists(filePath) {
+                const file = server.getFile(filePath);
+                const parentPath = path.dirname(filePath);
+                try { await file.getInfo(); } catch (e) { if (!parentPath == '') await getParentThatExists(parentPath); }
+            }
+
+            console.log('Getting parent that exists ...', await getParentThatExists(destPath));
+
+
+            // const fileRemote = server.getFile(destPath);
             // try {await fileRemote.delete();} catch (e) { console.error(e.message); }
-            try {await fileRemote.uploadFromStream(fs.createReadStream(filePath));} catch (e) { console.error(e); }
+            // try {await fileRemote.uploadFromStream(fs.createReadStream(filePath));} catch (e) { console.error(e); }
         }
 
         // if(server.hasStatus(server.STATUS.ONLINE)) await server.restart();
