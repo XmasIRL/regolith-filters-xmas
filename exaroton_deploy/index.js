@@ -12,7 +12,8 @@ dotenv.config({ path: envPath });
 const token = process.env.TOKEN;
 const serverID = process.env.SERVER_ID;
 
-const files_path = settings?.filesPath ?? 'data/exaroton_deploy/files';
+const ROOT_DIR = process.env.ROOT_DIR + "/"
+const files_path = ROOT_DIR +settings?.filesPath ?? 'data/exaroton_deploy/files';
 
 if (!token || !serverID) {
   console.error("Error: Invalid configuration. Please check whether your .env file has TOKEN and SERVER_ID defined.");
