@@ -44,12 +44,11 @@ async function deployFiles() {
 
         const walker = asyncFolderWalker(files_path,{statFilter: st => !st.isDirectory()});
         for await (const filePath of walker) {
-            const destPath = path.relative(files_path, filePath);
-            const destDir = path.dirname(destPath).replace(/\\/g, '/');
+            const destPath = path.relative(files_path, filePath).replace(/\\/g, '/');
             console.log('Deploying ' + destPath);
-            const fileRemote = server.getFile(destDir);
+            const fileRemote = server.getFile(destPath);
             // try {await fileRemote.delete();} catch (e) { console.error(e.message); }
-            try {await fileRemote.uploadFromStream(fs.createReadStream(filePath));} catch (e) { console.error(e.message); }
+            try {await fileRemote.uploadFromStream(fs.createReadStream(filePath));} catch (e) { console.error(e); }
         }
 
         // if(server.hasStatus(server.STATUS.ONLINE)) await server.restart();
