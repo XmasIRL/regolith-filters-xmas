@@ -47,13 +47,16 @@ async function deploy() {
         // deploy files
         console.log('Deploying server files... ');
         console.log('Existing files will be kept.');
-        let filesWalker = asyncFolderWalker(filesPath,{statFilter: st => !st.isDirectory()});
-        for await (const filePath of filesWalker) {
-            const destPath = path.relative(filesPath, filePath).replace(/\\/g, '/');
-            console.log('Deploying ' + destPath);
-            const fileRemote = server.getFile(destPath);
-            // try {await fileRemote.delete();} catch (e) { console.error(e.message); }
-            try {await fileRemote.uploadFromStream(fs.createReadStream(filePath));} catch (e) { console.error(e.message); }
+        if (!fs.existsSync(filesPath)) { console.error('Files folder not found!'); }
+        else {
+          let filesWalker = asyncFolderWalker(filesPath,{statFilter: st => !st.isDirectory()});
+          for await (const filePath of filesWalker) {
+              const destPath = path.relative(filesPath, filePath).replace(/\\/g, '/');
+              console.log('Deploying ' + destPath);
+              const fileRemote = server.getFile(destPath);
+              // try {await fileRemote.delete();} catch (e) { console.error(e.message); }
+              try {await fileRemote.uploadFromStream(fs.createReadStream(filePath));} catch (e) { console.error(e.message); }
+          }
         }
 
         // deploy packs
