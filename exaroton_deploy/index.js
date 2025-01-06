@@ -45,9 +45,9 @@ async function deployFiles() {
         for await (const filePath of walker) {
             const destPath = path.relative(files_path, filePath);
             console.log('Deploying ' + destPath);
-            // const fileRemote = server.getFile(filePath);
-            // try {await fileRemote.delete();} catch (e) { console.error(e.message); }
-            // try {await fileRemote.upload(filePath);} catch (e) { console.error(e.message); }
+            const fileRemote = server.getFile(destPath);
+            try {await fileRemote.delete();} catch (e) { console.error(e.message); }
+            try {await fileRemote.upload(filePath);} catch (e) { console.error(e.message); }
         }
 
         // if(server.hasStatus(server.STATUS.ONLINE)) await server.restart();
