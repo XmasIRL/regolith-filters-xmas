@@ -48,7 +48,7 @@ async function deployFiles() {
             console.log('Deploying ' + destPath);
             const fileRemote = server.getFile(destPath);
             // try {await fileRemote.delete();} catch (e) { console.error(e.message); }
-            try {await fileRemote.uploadFromStream(fs.createReadStream(filePath));} catch (e) { console.error(e.message); }
+            try {await fileRemote.setContent(filePath);} catch (e) { console.error(e.message); }
         }
 
         // if(server.hasStatus(server.STATUS.ONLINE)) await server.restart();
