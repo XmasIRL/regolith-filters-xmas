@@ -1,12 +1,11 @@
 
 const dotenv = require('dotenv');
-const path = require('path');
 const Exaroton = require('exaroton');
 const { asyncFolderWalker } = require('async-folder-walker')
 
 const settings = process.argv[2] ? JSON.parse(process.argv[2]) : null;
 
-const envPath = path.resolve(__dirname, settings?.envPath ?? 'data/exaroton_deploy/.env');
+const envPath = settings?.envPath ?? 'data/exaroton_deploy/.env';
 console.error('Loading .env file from ' + envPath);
 dotenv.config({ path: envPath });
 const token = process.env.TOKEN;
