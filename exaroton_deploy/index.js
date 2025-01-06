@@ -7,6 +7,7 @@ const { asyncFolderWalker } = require('async-folder-walker')
 const settings = process.argv[2] ? JSON.parse(process.argv[2]) : null;
 
 const envPath = path.resolve(__dirname, settings?.envPath ?? 'data/exaroton_deploy/.env');
+console.error('Loading .env file from ' + envPath);
 dotenv.config({ path: envPath });
 const token = process.env.TOKEN;
 const serverID = process.env.SERVER_ID;
@@ -31,7 +32,7 @@ async function deployFiles() {
 
         // recursive read server files
         async function readFiles(filePath) {
-            const fileRemote = await server.getFile(filePath);
+            const fileRemote = server.getFile(filePath);
             const children = await fileRemote.getChildren();
             for (const child of children) {
                 if (!child.isDirectory) console.log(child.path);
