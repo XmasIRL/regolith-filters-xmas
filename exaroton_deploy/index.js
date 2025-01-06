@@ -39,7 +39,7 @@ async function deployFiles() {
             }
         }
 
-        // await readFiles('');
+        await readFiles('');
 
         const walker = asyncFolderWalker(files_path,{statFilter: st => !st.isDirectory()});
         for await (const filePath of walker) {
