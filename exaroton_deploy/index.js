@@ -66,7 +66,7 @@ async function deploy() {
         else {
           if (!keepExistingPacks) for (const child of await server.getFile('packs').getChildren()) {try {
                 console.log('Deleting ' + child.path);
-                await fileRemote.delete();
+                await child.delete();
           } catch (e) { console.error(e.message); }}
           let packsWalker = asyncFolderWalker(packsPath,{statFilter: st => !st.isDirectory()});
           for await (const filePath of packsWalker) {
@@ -84,7 +84,7 @@ async function deploy() {
         else {
           if (!keepExistingWorlds) for (const child of await server.getFile('worlds').getChildren()) {try {
                 console.log('Deleting ' + child.path);
-                await fileRemote.delete();
+                await child.delete();
           } catch (e) { console.error(e.message); }}
           let worldsWalker = asyncFolderWalker(worldsPath,{statFilter: st => !st.isDirectory()});
           for await (const filePath of worldsWalker) {
